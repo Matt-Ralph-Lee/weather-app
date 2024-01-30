@@ -7,7 +7,7 @@ import WeatherTitle from "../molecules/WeatherTitle";
 import WeatherMainStatus from "../molecules/WeatherMainStatus";
 import WeatherSubStatus from "../molecules/WeatherSubStatus";
 
-export default function () {
+export default function WeatherSearch() {
   const [isSearched, setIsSearched] = useState(false);
   const [cityName, setCityName] = useState("");
 
