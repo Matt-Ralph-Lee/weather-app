@@ -2,11 +2,20 @@ import BodyMedium from "../atom/text/BodyMedium";
 import BodySmall from "../atom/text/BodySmall";
 import Header3 from "../atom/text/Header3";
 
-export default function WeatherSubStatus() {
+type Props = {
+  feelsLike: string;
+  wind: string;
+  humidity: string;
+};
+
+export default function WeatherSubStatus({ feelsLike, wind, humidity }: Props) {
+  const feelsLikeColor = feelsLike.includes("+")
+    ? "text-hotter"
+    : "text-colder";
   return (
     <div className="flex items-center mt-12">
       <div className="flex flex-col items-center">
-        <Header3 text="+1°" c="text-hotter" />
+        <Header3 text={feelsLike} c={feelsLikeColor} />
         <div className="mt-3">
           <BodySmall text="feels like" />
         </div>
@@ -16,7 +25,7 @@ export default function WeatherSubStatus() {
 
       <div className="flex flex-col items-center">
         <div className="flex items-end">
-          <Header3 text="4.1" />
+          <Header3 text={wind} />
           <div className="ml-2">
             <BodyMedium text="m/s" />
           </div>
@@ -30,7 +39,7 @@ export default function WeatherSubStatus() {
 
       <div className="flex flex-col items-center">
         <div className="flex items-end">
-          <Header3 text="45" />
+          <Header3 text={humidity} />
           <div className="ml-2">
             <BodyMedium text="%" />
           </div>
