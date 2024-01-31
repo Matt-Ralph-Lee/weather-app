@@ -8,16 +8,17 @@ import WeatherMainStatus from "../molecules/WeatherMainStatus";
 import WeatherSubStatus from "../molecules/WeatherSubStatus";
 
 export default function WeatherSearch() {
+  const [isErr, setIsErr] = useState(false);
   const [isSearched, setIsSearched] = useState(false);
   const [cityName, setCityName] = useState("");
 
-  const [title, setTitle] = useState("City Name");
-  const [time, setTime] = useState("0:00 AM");
-  const [temp, setTemp] = useState("0.0");
-  const [iconSrc, setIconSrc] = useState("../../../public/search.svg");
-  const [feelsLike, setFeelsLike] = useState("0.0");
-  const [wind, setWind] = useState("0.0");
-  const [humidty, setHumidity] = useState("0.0");
+  const [title, setTitle] = useState("--");
+  const [time, setTime] = useState("-:-- AM");
+  const [temp, setTemp] = useState("--");
+  const [iconSrc, setIconSrc] = useState("");
+  const [feelsLike, setFeelsLike] = useState("--");
+  const [wind, setWind] = useState("--");
+  const [humidty, setHumidity] = useState("--");
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,6 +34,7 @@ export default function WeatherSearch() {
       console.log(jsonData);
       if (jsonData.error) {
         console.log("error");
+        setIsErr(true);
       } else {
         setTitle(cityName);
         setTime(jsonData.time);
@@ -42,15 +44,22 @@ export default function WeatherSearch() {
         setWind(jsonData.wind);
         setHumidity(jsonData.humidity);
         setIconSrc(jsonData.iconSrc);
+        setIsErr(false);
       }
     } catch (err) {
       console.log(err);
+      setIsErr(true);
     }
   };
 
   return (
     <>
-      <div className="w-full mt-20 absolute flex justify-center">
+      <div className="flex flex-col h-1/6 justify-end items-center">
+        {isErr && (
+          <div className="font-montserrat text-rose-600 mb-2">
+            Please check your input
+          </div>
+        )}
         <SearchBar
           cityName={cityName}
           setCityName={setCityName}
@@ -58,19 +67,25 @@ export default function WeatherSearch() {
         />
       </div>
       {isSearched ? (
-        <div className="w-full h-full flex flex-col justify-center items-center">
-          <WeatherTitle cityName={title} time={time} />
-          <WeatherMainStatus temp={temp} iconSrc={iconSrc} />
-          <WeatherSubStatus
-            feelsLike={feelsLike}
-            wind={wind}
-            humidity={humidty}
-          />
-        </div>
+        <>
+          <div className="w-full h-4/6 flex flex-col justify-between items-center">
+            <WeatherTitle cityName={title} time={time} />
+            <WeatherMainStatus temp={temp} iconSrc={iconSrc} />
+            <WeatherSubStatus
+              feelsLike={feelsLike}
+              wind={wind}
+              humidity={humidty}
+            />
+          </div>
+          <div className="h-1/6"></div>
+        </>
       ) : (
-        <div className="w-full h-full flex justify-center items-center">
-          <PageTitle />
-        </div>
+        <>
+          <div className="flex justify-center items-center h-4/6">
+            <PageTitle />
+          </div>
+          <div className="h-1/6"></div>
+        </>
       )}
     </>
   );

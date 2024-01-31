@@ -13,7 +13,7 @@ export default function WeatherSubStatus({ feelsLike, wind, humidity }: Props) {
     ? "text-hotter"
     : "text-colder";
   return (
-    <div className="flex items-center mt-12">
+    <div className="flex items-center">
       <div className="flex flex-col items-center">
         <Header3 text={feelsLike} c={feelsLikeColor} />
         <div className="mt-3">
