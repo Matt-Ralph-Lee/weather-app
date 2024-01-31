@@ -4,7 +4,7 @@ type Props = {
 
 export default function Header2({ text }: Props) {
   return (
-    <div className="text-5xl md:text-6xl font-montserrat text-baseBlack">
+    <div className="text-4xl md:text-5xl font-montserrat text-baseBlack">
       {text}
     </div>
   );

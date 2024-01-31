@@ -8,7 +8,7 @@ type Props = {
 
 export default function WeatherMainStatus({ temp, iconSrc }: Props) {
   return (
-    <div className="flex justify-center items-center my-24">
+    <div className="flex justify-center items-center">
       <Header1 text={`${temp}°`} />
       <Icon src={iconSrc} alt="weather icon" width={90} height={90} />
     </div>

@@ -4,7 +4,7 @@ type Props = {
 
 export default function BodyLarge({ text }: Props) {
   return (
-    <div className="text-2xl md:text-3xl font-montserrat text-baseBlack">
+    <div className="text-xl md:text-2xl font-montserrat text-baseBlack">
       {text}
     </div>
   );
